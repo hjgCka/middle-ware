@@ -1,6 +1,11 @@
 package com.hjg.middle.ware.mongo;
 
-import com.mongodb.*;
+import com.mongodb.Block;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
@@ -10,33 +15,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 代码范例来自3.6.4版本驱动。
+ * 代码基于3.11.2版本驱动的范例。
+ * 3.11.2版本的驱动，同时支持旧的com.mongodb.MongoClient驱动。
  */
-public class MongoApp {
+public class MongoApp2 {
 
     static MongoClient getMongoClient(String[] addresses) {
-        int connectionsPerHost = 10;
-        int minConnectionsPerHost = 10;
 
-        MongoClientOptions.Builder builder = new MongoClientOptions.Builder()
-                .connectionsPerHost(connectionsPerHost)
-                .minConnectionsPerHost(minConnectionsPerHost);
-        MongoClientOptions mongoClientOptions = builder.build();
-
-        // MongoDB地址列表
         List<ServerAddress> serverAddresses = new ArrayList<>();
         for(String address : addresses) {
             String[] array = address.split(":");
             serverAddresses.add(new ServerAddress(array[0], Integer.valueOf(array[1])));
         }
 
-        // 连接认证
-        String username = "mongoadmin", password = "123456";
-        String authenticationDb = "admin";
-        MongoCredential mongoCredential = MongoCredential.createCredential(username, authenticationDb, password.toCharArray());
+        String username = "mongoadmin", password = "123456", database = "admin";
+        MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
 
-        //创建客户端和Factory
-        MongoClient mongoClient = new MongoClient(serverAddresses, mongoCredential, mongoClientOptions);
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .credential(credential)
+                .applyToClusterSettings(builder ->
+                        builder.hosts(serverAddresses))
+                .build();
+        MongoClient mongoClient = MongoClients.create(settings);
 
         return mongoClient;
     }
