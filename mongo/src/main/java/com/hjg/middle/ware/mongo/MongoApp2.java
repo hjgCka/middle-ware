@@ -34,8 +34,8 @@ public class MongoApp2 {
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .credential(credential)
-                .applyToConnectionPoolSettings(bulder -> bulder.maxSize(10)
-                        .minSize(5).maxWaitQueueSize(20)
+                .applyToConnectionPoolSettings(bulder -> bulder.maxSize(10).minSize(5)
+                        .maxWaitQueueSize(20)
                         .maxWaitTime(5000, TimeUnit.MILLISECONDS)
                         .maxConnectionLifeTime(1000, TimeUnit.SECONDS)
                         .maxConnectionIdleTime(1000, TimeUnit.SECONDS))
