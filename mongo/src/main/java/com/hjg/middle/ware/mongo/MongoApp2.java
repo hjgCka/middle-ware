@@ -13,6 +13,7 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 代码基于3.11.2版本驱动的范例。
@@ -33,8 +34,12 @@ public class MongoApp2 {
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .credential(credential)
-                .applyToClusterSettings(builder ->
-                        builder.hosts(serverAddresses))
+                .applyToConnectionPoolSettings(bulder -> bulder.maxSize(10)
+                        .minSize(5).maxWaitQueueSize(20)
+                        .maxWaitTime(5000, TimeUnit.MILLISECONDS)
+                        .maxConnectionLifeTime(1000, TimeUnit.SECONDS)
+                        .maxConnectionIdleTime(1000, TimeUnit.SECONDS))
+                .applyToClusterSettings(builder -> builder.hosts(serverAddresses))
                 .build();
         MongoClient mongoClient = MongoClients.create(settings);
 
