@@ -11,7 +11,7 @@ public class MongoDriverApp {
         int[] ports = {27017};
         String database = "npdb", collection = "article";
 
-        //MongoUtil1.printBooks(hosts, ports, database, collection);
+        MongoUtil1.printBooks(hosts, ports, database, collection);
 
         MongoUtil2.printBooks(hosts, ports, database, collection);
     }
