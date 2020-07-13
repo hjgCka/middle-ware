@@ -12,6 +12,7 @@
         <module>mongo</module>
         <module>jdbc</module>
         <module>mybatis</module>
+        <module>mybatis-spring</module>
     </modules>
 
     <dependencies>

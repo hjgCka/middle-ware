@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--environments DataSource transactionManager都会被忽略-->
+
+    <!--配置 settings typeAliases mappers 标签-->
+    <!--mappers标签和SqlSessionFactory的MapperLocations不要重复 -->
+    <typeAliases>
+        <typeAlias alias="blog" type="com.hjg.mybatis.spring.example.model.Blog"/>
+    </typeAliases>
+
+</configuration>
