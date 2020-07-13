@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * 代码范例来自3.6.4版本驱动。
  */
-public class MongoApp {
+public class MongoUtil1 {
 
-    static MongoClient getMongoClient(String[] hosts, int[] ports) {
+    private static MongoClient getMongoClient(String[] hosts, int[] ports) {
 
         // MongoDB地址列表
         List<ServerAddress> serverAddresses = new ArrayList<>();
@@ -38,19 +38,14 @@ public class MongoApp {
         return mongoClient;
     }
 
-    public static void main(String[] args) {
-
-        String[] hosts = {"10.153.61.38"};
-        int[] ports = {8717};
+    public static void printBooks(String[] hosts, int[] ports, String databaseName, String collectionName) {
         MongoClient mongoClient = getMongoClient(hosts, ports);
 
-        String targetDb = "npdb", collectionName = "article";
-        MongoDatabase database = mongoClient.getDatabase(targetDb);
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection(collectionName);
 
-        String author = "Jimmy";
-
         Block<Document> printBlock = document -> System.out.println(document.toJson());
+        String author = "Jimmy";
         collection.find(Filters.eq("author", author)).forEach(printBlock);
 
         //关闭资源

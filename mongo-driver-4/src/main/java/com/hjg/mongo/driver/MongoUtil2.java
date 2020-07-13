@@ -49,5 +49,7 @@ public class MongoUtil2 {
                 .forEach(
                         document -> System.out.println(document.toJson())
                 );
+
+        mongoClient.close();
     }
 }

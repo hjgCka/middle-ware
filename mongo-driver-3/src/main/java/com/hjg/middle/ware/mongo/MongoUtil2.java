@@ -16,12 +16,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 代码基于3.11.2版本驱动的范例。
- * 3.11.2版本的驱动，同时支持旧的com.mongodb.MongoClient驱动。
+ * 3.11.2的示例代码。
  */
-public class MongoApp2 {
+public class MongoUtil2 {
 
-    static MongoClient getMongoClient(String[] hosts, int[] ports) {
+    private static MongoClient getMongoClient(String[] hosts, int[] ports) {
 
         List<ServerAddress> serverAddresses = new ArrayList<>();
         for(int i=0; i<hosts.length; i++) {
@@ -45,19 +44,13 @@ public class MongoApp2 {
         return mongoClient;
     }
 
-    public static void main(String[] args) {
-
-        String[] hosts = {"10.153.61.38"};
-        int[] ports = {8717};
+    public static void printBooks(String[] hosts, int[] ports, String databaseName, String collectionName) {
         MongoClient mongoClient = getMongoClient(hosts, ports);
-
-        String targetDb = "npdb", collectionName = "article";
-        MongoDatabase database = mongoClient.getDatabase(targetDb);
+        MongoDatabase database = mongoClient.getDatabase(databaseName);
         MongoCollection<Document> collection = database.getCollection(collectionName);
 
-        String author = "Jimmy";
-
         Block<Document> printBlock = document -> System.out.println(document.toJson());
+        String author = "Jimmy";
         collection.find(Filters.eq("author", author)).forEach(printBlock);
 
         //关闭资源
