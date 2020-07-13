@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--元素需要按顺序配置-->
+    <typeAliases>
+        <typeAlias alias="Blog" type="com.hjg.mybatis.example.vo.Blog"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <!--使用 Spring + MyBatis，则没有必要配置事务管理器-->
+            <transactionManager type="JDBC"/>
+
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/hjg/mybatis/example/mapper/BlogMapper.xml"/>
+    </mappers>
+</configuration>
