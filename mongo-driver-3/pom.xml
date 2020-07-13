@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>middle-ware</artifactId>
+        <groupId>org.hjg.plain</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mongo</artifactId>
+
+    <properties>
+        <!--
+        3.6.4     3.11.2     3.12.6
+        -->
+        <mongo3.driver.version>3.12.6</mongo3.driver.version>
+    </properties>
+
+    <dependencies>
+        <!-- 该驱动同时包含legacy api以及新版本的类。 -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>${mongo3.driver.version}</version>
+        </dependency>
+    </dependencies>
+</project>

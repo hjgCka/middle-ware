@@ -14,28 +14,25 @@ import java.util.List;
  */
 public class MongoApp {
 
-    static MongoClient getMongoClient(String[] addresses) {
+    static MongoClient getMongoClient(String[] hosts, int[] ports) {
+
+        // MongoDB地址列表
+        List<ServerAddress> serverAddresses = new ArrayList<>();
+        for(int i=0; i<hosts.length; i++) {
+            serverAddresses.add(new ServerAddress(hosts[i], ports[i]));
+        }
+
+        // 连接认证
+        String username = "mongoadmin", password = "123456", authenticationDb = "admin";
+        MongoCredential mongoCredential = MongoCredential.createCredential(username, authenticationDb, password.toCharArray());
+
         int connectionsPerHost = 10;
         int minConnectionsPerHost = 10;
-
         MongoClientOptions.Builder builder = new MongoClientOptions.Builder()
                 .connectionsPerHost(connectionsPerHost)
                 .minConnectionsPerHost(minConnectionsPerHost);
         MongoClientOptions mongoClientOptions = builder.build();
 
-        // MongoDB地址列表
-        List<ServerAddress> serverAddresses = new ArrayList<>();
-        for(String address : addresses) {
-            String[] array = address.split(":");
-            serverAddresses.add(new ServerAddress(array[0], Integer.valueOf(array[1])));
-        }
-
-        // 连接认证
-        String username = "mongoadmin", password = "123456";
-        String authenticationDb = "admin";
-        MongoCredential mongoCredential = MongoCredential.createCredential(username, authenticationDb, password.toCharArray());
-
-        //创建客户端和Factory
         MongoClient mongoClient = new MongoClient(serverAddresses, mongoCredential, mongoClientOptions);
 
         return mongoClient;
@@ -43,8 +40,9 @@ public class MongoApp {
 
     public static void main(String[] args) {
 
-        String[] addresses = new String[]{"10.153.61.38:8717"};
-        MongoClient mongoClient = getMongoClient(addresses);
+        String[] hosts = {"10.153.61.38"};
+        int[] ports = {8717};
+        MongoClient mongoClient = getMongoClient(hosts, ports);
 
         String targetDb = "npdb", collectionName = "article";
         MongoDatabase database = mongoClient.getDatabase(targetDb);

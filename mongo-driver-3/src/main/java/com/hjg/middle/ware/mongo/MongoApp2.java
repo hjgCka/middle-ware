@@ -21,16 +21,15 @@ import java.util.concurrent.TimeUnit;
  */
 public class MongoApp2 {
 
-    static MongoClient getMongoClient(String[] addresses) {
+    static MongoClient getMongoClient(String[] hosts, int[] ports) {
 
         List<ServerAddress> serverAddresses = new ArrayList<>();
-        for(String address : addresses) {
-            String[] array = address.split(":");
-            serverAddresses.add(new ServerAddress(array[0], Integer.valueOf(array[1])));
+        for(int i=0; i<hosts.length; i++) {
+            serverAddresses.add(new ServerAddress(hosts[i], ports[i]));
         }
 
-        String username = "mongoadmin", password = "123456", database = "admin";
-        MongoCredential credential = MongoCredential.createCredential(username, database, password.toCharArray());
+        String username = "mongoadmin", password = "123456", authenticationDb = "admin";
+        MongoCredential credential = MongoCredential.createCredential(username, authenticationDb, password.toCharArray());
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .credential(credential)
@@ -48,8 +47,9 @@ public class MongoApp2 {
 
     public static void main(String[] args) {
 
-        String[] addresses = new String[]{"10.153.61.38:8717"};
-        MongoClient mongoClient = getMongoClient(addresses);
+        String[] hosts = {"10.153.61.38"};
+        int[] ports = {8717};
+        MongoClient mongoClient = getMongoClient(hosts, ports);
 
         String targetDb = "npdb", collectionName = "article";
         MongoDatabase database = mongoClient.getDatabase(targetDb);
