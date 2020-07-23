@@ -11,7 +11,6 @@
     <modules>
         <module>jdbc</module>
         <module>mybatis</module>
-        <module>mybatis-spring</module>
         <module>mongo-driver-3</module>
         <module>mongo-driver-4</module>
     </modules>
