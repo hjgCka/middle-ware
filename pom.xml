@@ -13,6 +13,7 @@
         <module>mybatis</module>
         <module>mongo-driver-3</module>
         <module>mongo-driver-4</module>
+        <module>redis</module>
     </modules>
 
     <dependencies>
