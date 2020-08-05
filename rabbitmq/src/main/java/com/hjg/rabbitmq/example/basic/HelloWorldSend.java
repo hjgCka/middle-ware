@@ -30,6 +30,7 @@ public class HelloWorldSend {
 
             String message = "hello world!";
             //消息内容是字节数组，所以你可以以你想要的方式来编码
+            //使用默认的exchange，它会将message的route_key当作queue
             channel.basicPublish("", queueName, null, message.getBytes());
         }
     }
