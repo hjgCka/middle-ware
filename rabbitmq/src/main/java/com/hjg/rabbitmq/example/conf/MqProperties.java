@@ -8,4 +8,5 @@ public class MqProperties {
     public static final String PASSWORD = "IMSdev123";
 
     public static final String FANOUT = "fanout";
+    public static final String DIRECT = "direct";
 }
