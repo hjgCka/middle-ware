@@ -9,4 +9,5 @@ public class MqProperties {
 
     public static final String FANOUT = "fanout";
     public static final String DIRECT = "direct";
+    public static final String TOPIC = "topic";
 }
