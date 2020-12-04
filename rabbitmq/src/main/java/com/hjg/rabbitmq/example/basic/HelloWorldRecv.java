@@ -38,7 +38,8 @@ public class HelloWorldRecv {
             System.out.println("Received :" + message);
         };
 
-        //消费者会不停运行，需要手动停止
+        //这个方法是一个同步方法，不会自己停下来，需要手动停止
+        //这个方法使用的是推模式
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});
     }
 }

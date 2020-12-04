@@ -15,7 +15,13 @@
         <module>mongo-driver-4</module>
         <module>redis</module>
         <module>rabbitmq</module>
+        <module>zookeeper-demo</module>
     </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
