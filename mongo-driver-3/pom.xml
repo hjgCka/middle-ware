@@ -15,7 +15,7 @@
         <!--
         3.6.4     3.11.2     3.12.6
         -->
-        <mongo3.driver.version>3.12.6</mongo3.driver.version>
+        <mongo3.driver.version>3.12.8</mongo3.driver.version>
     </properties>
 
     <dependencies>
